@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+          console.log(this)
+    // 아무곳에서 this를 쓰면 window를 뜻합니다.
+            function 간지나는함수() {
+                console.log(this)
+            }
+            간지나는함수();
+            //일반 함수 또한 this를 쓰면 window를 뜻합니다. 여기서 window란  모든 전역변수, 함수, DOM을 보관하고 관리하는 전역객체입니다.
+            //쉽게 말하자면 평소에 쓰는 자바스크립트 함수들인 document.getElementById(), alert(), console.log() 이런 함수들을 보관하는 보관소입니다. 보관소는 특별한건 아니고 그냥 큰 { 오브젝트 }일 뿐입니다.  
+    </script>
+  
+</body>
+</html>
