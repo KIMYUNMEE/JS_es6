@@ -8,14 +8,20 @@
 </head>
 <body>
     <script>
-          console.log(this)
-    // 아무곳에서 this를 쓰면 window를 뜻합니다.
-            function 간지나는함수() {
-                console.log(this)
+    var 오브젝트1 = {
+        data: 'Kim',
+        간지함수: function () { console.log(this) }
+    }
+    오브젝트1.간지함수();
+    //object에 함수를 담을 수 있는데 이런 함수는 메소드라고 합니다. 간지 대신 this를 쓰면 this는 메소드를 가지고 있는 오브젝트를 의미합니다.
+    //그래서 이 상황에서 this를 넣으면 오브젝트1이 출력됩니다.
+    var 오브젝트2 = {
+            data: {
+                간지함수: function () { console.log(this) }
             }
-            간지나는함수();
-            //일반 함수 또한 this를 쓰면 window를 뜻합니다. 여기서 window란  모든 전역변수, 함수, DOM을 보관하고 관리하는 전역객체입니다.
-            //쉽게 말하자면 평소에 쓰는 자바스크립트 함수들인 document.getElementById(), alert(), console.log() 이런 함수들을 보관하는 보관소입니다. 보관소는 특별한건 아니고 그냥 큰 { 오브젝트 }일 뿐입니다.  
+        }
+        오브젝트2.data.간지함수();
+        //이 경우는 간지함수()를 담고있는 주인님인 오브젝트2.data 라는게 출력됩니다.
     </script>
   
 </body>
