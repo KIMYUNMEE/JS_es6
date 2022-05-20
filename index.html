@@ -8,34 +8,19 @@
 </head>
 <body>
     <script>
-// 자바스크립트는 변수나 함수의 선언부분을 변수의 범위 맨 위로 강제로 끌고가서 가장 먼저 해석합니다.그게 Hoisting입니다. 
-    function 함수() {
-
-        console.log('hello');
-        var 이름 = 'Kim';
-
-    }
-    //이 함수에서자바스크립트가 이 코드를 해석하는 순서는 이렇게 됩니다. 
-    function 함수() {
-
-            var 이름;
-            console.log('hello');
-            이름 = 'Kim';
-
-        }
-        //변수의 선언 부분을 강제로 변수의 범위 맨 위로 끌고가서 해석하고 지나갑니다.자바스크립트는 코드 동작 순서가 이렇고 이게 Hoisting 현상입니다. 
-
-                console.log(이름);
-                var 이름 = 'Kim';
-                console.log(이름);
-
-
-        //이 함수는 이런식으로 해석됩니다. 그래서 첫째로는 undefined가 출력되고 둘째로는 Kim이 출력됩니다. 
-        //여기서 undefined라는건 변수가 선언은 되었는데 값을 아무것도 할당하지 않았을 때 undefined가 출력됩니다.
-            var 이름;
-            console.log(이름);
-            이름 = 'Kim'
-            console.log(이름);
+    var 문자 = `안녕
+하세요`;
+//template literals 를 쓰면 1. 문자 중간 엔터키 입력이 가능합니다
+    var 이름 = '손흥민';
+    var 문자 = `안녕하세요 ${이름} 입니다`;
+//2. 문자 중간에 변수를 집어넣을 때 편리합니다
+    var 문자 = `
+<div>
+  <div>
+    ${변수명}
+  </div>
+</div>`;
+//3.자바스크립트 문자로 HTML을 작성하실 때도 유용합니다. 
     </script>
   
 </body>
