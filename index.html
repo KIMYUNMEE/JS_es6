@@ -8,98 +8,25 @@
 </head>
 <body>
     <script>
-    var 어레이 = ['hello', 'world'];
-    console.log(어레이);
-    console.log(...어레이);
-    //마침표를 연달아서 3개... 찍으면 spread operator라는 문법이고 "괄호제거 해주는 연산자"입니다.
-    var a = [1, 2, 3];
-        var b = [4, 5];
-        var c = [...a, ...b];
-    //spread operator문법을 쓰는 이유는 1.Array 합치기/복사에 매우 좋습니다.
-    //c라는 어레이를 출력해보면 [1,2,3,4,5]가 되어있습니다. 
+   function 더하기(a, b = 10) {
+        console.log(a + b)
+    }
 
-    //다른 예시
-    var a = [1, 2, 3];
-        var b = a;
-        console.log(a);
-        console.log(b);
-        //a라는 어레이를 복사해서 b를 만들고 싶을때 이렇게 하면 복사가 아니라 b와 a가 값공유를 해서 b값이 달라지면 a도 달라집니다.
-        var a = [1, 2, 3];
-            var b = [...a];
+    더하기(1);
+    //함수를 만들 때 파라미터값을 실수로 안적거나 했을 경우 파라미터에 기본값(default 값)을 줄 수 있습니다. 
+    //b = 10 선언해뒀던 default 파라미터값인 10이 b에 할당되어서 콘솔창에 a + b가 11이 출력되게 되는 것입니다. 
+    function 임시함수() {
+            return 10
+        }
 
-            console.log(a);
-            console.log(b)
-        //그래서 이렇게 ...연산자를 쓰면 a를 복사할 수 있고 a와 b 변수의 값 공유가 일어나지 않습니다. 
-    var o1 = { a: 1, b: 2 };
-    var o2 = { c: 3, ...o1 };
-    console.log(o2);
-        //spread operator문법을 쓰는 이유는 2.Object 합치기/복사에 매우 자주 씁니다.
-        //object 두개를 합치고 싶을 때 o1오브젝트를 spread 연산자를 이용해 괄호를 벗겨서 추가하면 됩니다.
-        
-        //예외) 오브젝트의 key값 중복이 발생했을 때
-    var o1 = { a: 1, b: 2 };
-        var o2 = { a: 3, ...o1 };
-        console.log(o2);
-        //o2를 o1항목을 추가해서 만들고 싶은데 a라는 키값이 이미 있으면 a라는 값이 중복이 발생하면 무조건 뒤에 오는 a가 우선입니다.
-        //그래서 출력해보면 a: 1 이라는 자료가 담겨져있습니다.
-        //spread 연산자는 함수소괄호, 오브젝트 중괄호내, 어레이 대괄호내에서 보통 사용하는것이 좋습니다.
+        function 더하기(a, b = 임시함수()) {
+            console.log(a + b)
+        }
 
-        function 더하기(a, b, c) {
-                console.log(a + b + c)
-            }
+        더하기(3);
+        //default 파라미터엔 함수입력도 가능
+        //b자리에 파라미터가 들어오지 않으면 임시함수()를 실행한 값을 b 파라미터에 할당해주어서 임시함수()를 실행하면 그 자리에 10이 남습니다.
 
-            var 어레이 = [10, 20, 30];
-        //spread operator문법을 쓰는 이유는 3.array를 파라미터형태로 집어넣고 싶을 때 씁니다.
-        //함수의 파라미터를 집어넣을 때 직접 1, 2, 3이라고 작성해서 넣는게 아니라 이미 존재하는 array에 있던 내부 자료들을 쏙 집어넣고 싶을때는 어떻게해야 할까요 즉 ,어레이라는 자료 안에 있는 모든 숫자 10, 20, 30을 더하기() 함수의 파라미터로 집어넣는 방법은?
-        function 더하기(a, b, c) {
-                console.log(a + b + c)
-            }
-
-            var 어레이 = [10, 20, 30];
-            더하기(...어레이);
-        //이렇게 spread operator문법을 쓰면 한번에 쏙 넣을 수 있습니다.
-
-        var person = {
-                인사: function () {
-                    console.log(this.name + '안녕')
-                }
-            }
-
-            var person2 = {
-                name: '손흥민'
-            }
-            // person에 만들어놓은 멋진 person.인사()라는 함수를 person2에서도 쓰고 싶을때 person2에다가 직접 인사()라는 함수를 코딩해서 집어넣는 방법 대신
-            //그럴 때 apply를 쓰면 됩니다.apply는 이 함수를 실행하는데 저 오브젝트에다가 적용해서 실행해주세요~라는 뜻입니다.
-            var person = {
-                    인사: function () {
-                        console.log(this.name + '안녕')
-                    }
-                }
-
-                var person2 = {
-                    name: '손흥민'
-                }
-
-                person.인사.apply(person2);
-                //person.인사()라는 함수를 쓰는데 person2라는 오브젝트에 적용해서 실행해라~ 또는 person.인사()라는 함수를 쓰는데 person2라는 오브젝트에 있는 함수처럼 실행해라~라는 뜻입니다.=>실행할함수.apply(적용할곳);
-                //이거랑 아주 똑같은 기능을 하는 함수가 하나 더 있습니다. call 
-                var person = {
-                        인사: function () {
-                            console.log(this.name + '안녕')
-                        }
-                    }
-
-                    var person2 = {
-                        name: '손흥민'
-                    }
-
-                    person.인사.apply(person2);
-                    person.인사.call(person2);
-                    //apply와 call은 실행 결과도 똑같고 사용법도 똑같습니다. 차이점이 하나 있는데, 내가 person.인사()에 파라미터를 넣어서 실행하고 싶은 경우에는
-
-                        person.인사.apply(person2, 파라미터);
-                        person.인사.call(person2, 파라미터);
-                    //이렇게 실행해야하는데 이 때 apply는 파라미터를[array]로 한꺼번에 집어넣을 수 있고 call은 그냥 1, 2, 3 이렇게 일반 함수처럼 만 집어넣을 수 있습니다. 
 
 
 
