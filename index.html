@@ -138,6 +138,40 @@
             //그리고 기계.prototype의 __proto__도 조회가능합니다.=>기계.prototype의 부모 유전자
             //이런식으로 나의 부모의 부모까지 탐색할 수 있습니다. 탐색하면 모든 object 자료형의 조상은 Object() 라는 기계이며(일명 Object.prototype) 모든 array 자료형의 조상도 Object()입니다. (중간에 Array()라는 부모도 있습니다.)
             //모든 함수 자료형의 조상도 Object() 입니다. =>그래서 자바스크립트는 모든게 다 Object라고 말하는 것입니다.
+
+            //prototype이나,this,class보다 더쉬운 상속을 이용해서 오브젝트를 만드는 방법은 ES5방식이 있는데 인지도는 낮습니다.=>Object.create()
+            var 부모 = { name: 'Kim', age: 50 };
+                var 자식 = Object.create(부모);
+
+                console.log(자식.age); //50나옴
+            //Object.create(부모object);는 이 자리에 오브젝트 자료형 하나가 남습니다. 그리고 소괄호 안에 적은 부모object가 유전자(prototype)가 되는 것입니다.
+            //위의 예제를 보면 자식이라는 object는 부모를 prototype으로 두게 됩니다. 자식.name 해도 'Kim'이 출력되고 자식.age 해도 50이 출력됩니다.(이렇게 하면 쉽게 상속할 수 있습니다.)
+
+            //위의 예제의 age를 20으로 바꾸고 싶다면?
+            var 부모 = { name: 'Kim', age: 50 };
+                var 자식 = Object.create(부모);
+                자식.age = 20;
+
+                console.log(자식.age); //20 나옴
+            //자식이라는 object에 age : 20 이라는 값을 부여하면 자식.age 할 때마다 20이 출력됩니다.
+            //Q:부모로부터 상속받은 50이라는 age가 출력되지 않는 이유는?
+            //A:자바스크립트 오브젝트 자료형에서 특정 자료를 꺼낼 때 묻는 순서가 있다고 배웠었습니다. 자식.age를 꺼내주세요~라고 하면
+            //A:1. 자식이라는 object가 직접 age를 가지고 있으면 그거 출력 2. 없으면 자식의 부모 prototype을 뒤져서 age가 거기 있으면 그거 출력 3. 거기도 없으면 부모의 부모 prototype을 탐색해서..
+            //위와 같은 순서로 age를 출력하기 때문에 자식이 20이 나오는 것입니다.
+            
+            //자식을 넘어서 손자를 만드려면?
+            var 부모 = { name: 'Kim', age: 50 };
+                var 자식 = Object.create(부모);
+                자식.age = 20;
+
+                var 손자 = Object.create(자식);
+
+                console.log(손자.age);
+            //손자는 자식과 부모가 가진 속성들을 전부 물려받습니다. 그래서 손자.age는 20이 출력됩니다.
+            //Q:20이 나오는 이유는?
+            //A:1. 손자에 age가 있는지 확인하고 2. 없으면 부모 prototype에 있는지 확인하고 3. 거기도 없으면 부모의 부모 prototype에 있는지 확인하고..
+            //A:이렇게 하나씩 확인해서 젤 가까운 age를 출력시키기 때문입니다. 
+            
     </script>
   
 </body>
