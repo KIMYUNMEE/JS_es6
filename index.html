@@ -9,135 +9,47 @@
 </head>
 
 <body>
-    <script>
-        //Array, Object 자료형에 있는 중요한 자료들을 변수로 꺼내고 싶을때 여러개의 자료를 뽑아서 변수 만들려면 코드가 매우 길어지기 때문에 destructuring 문법을 사용하면 변수를 쉽게 만들 수 있습니다. 
+    <script type="module">
+        import a from 'library.js';
+        console.log(a);
+        //자바스크립트 코드가 길어지면 다른 파일로 쪼개는게 좋은 관습, 다른파일로 쪼개놓고 그걸 첨부해서 사용하는 방법
+        //ES6 import /export를 쓰시면 내가 원하는 변수, 함수, class만 다른 파일로 보낼 수 있습니다.
+        //(참고) import 해온 변수, 함수는 사용은 가능하지만 수정은 불가능합니다.read - only 입니다.
 
-        var array = [2, 3, 4];
-        var a = array[0];
-        var b = array[1];
-        //여기안에 있는 3개의 데이터들을 전부 밖으로 꺼내서 변수에 담고 싶을 때 a,b 이렇게 담아서 꺼내는것 보단
-        var [a, b, c] = [2, 3, 4];
-        //[2,3,4]라는 자료랑 비슷한 모양으로 변수를 선언 이름은 아무렇게 선언하고 a, b, c 변수가 세개 생성되는데 각각 2, 3, 4라는 자료를 가집니다.
-        //이렇게 array에서 데이터 끄집어내서 변수 생성 끝입니다.
-
-
-        // 더불어 디폴트 값도 줄 수 있습니다.
-        var [a, b, c] = [2, 3];
-        //위처럼 쓰면 c라는 변수는 값이 할당이 안되어서 undefined가 할당
-        //이걸 방지하기 위해 값이 아무것도 안들어오는 변수들은 기본값을 가질 수 있게 만들 수 있습니다. 
-        var [a, b, c = 5] = [2, 3];
-        //그럼 c는 아무 값도 안들어오는 경우 5라는 기본값을 할당해줍니다.
+        //index.html과 library.js를 만들어서 library.js 파일에 있는 내용을 index.html < script > 태그 내에서 가져다 쓰게 하기(.js 파일 간에도 가능)
+        //HTML 파일 안에서 ES6 import 문법을 쓰려면 script 태그 안에 type을 module로 설정해야함
+        //(1) export default / import 를 쓰면 다른 파일에 있는 변수 등을 가져다 쓸수 있음. 변수 함수 class 전부 가능
 
 
-        //Object 안에 있는 데이터를 변수에 담는 방법
-        var { name: a, age: b } = { name: 'Kim', age: 30 };
-        // a, b라는 변수가 생성되고 Kim과 30이라는 자료를 각각 할당해줍니다.
+        //(2) 여러개를 export 할 수도 있습니다 JS파일에서 변수를 여러개 만들고 그걸 다 내보내고싶으면 export 라는 키워드를 여러번 쓰면 됌
+        import { a, b } from 'library.js';
+        console.log(a);
 
+        //(3)그럼 export와 export default 동시에 사용할땐?
+        import c, { a, b } from 'library.js';
+        console.log(c);
+        //이렇게 import 해오면 됌 export default 한건 맨 왼쪽에 써주시면 되고
+        //그 다음부터 이제 { } 중괄호 안에 export 했던 변수들을 적어주시면 됩니다.
 
-        //이렇게 쓰면 조금 더 쉽게 변수를 뽑을 수 있는데
-        //변수 이름을 오브젝트 안의 key 이름과 똑같이 맞춰줄 때는 이렇게만 써도 가능
-        var { name, age } = { name: 'Kim', age: 30 };
-        //name : name을 name 이렇게 하나로 생략이 가능
-        //이렇게 하면 name, age라는 변수가 생성되고 각각 Kim, 30이라는 값을 할당해줍니다.이렇게 object에서 변수꺼내기 끝입니다.
-        //+ array랑 똑같이 등호로 디폴트값도 적용가능
+        //(4) 변수명이 마음에 안들면 as로 새로 짓기
+        import c as 간지, { a as 폭발 } from 'library.js';
+        console.log(간지);
+        console.log(폭발);
+        //import를 쓸 때 변수명 오른쪽에 as라는 키워드를 붙일 수 있습니다.
+        //변수명 as 새변수명 이렇게 하면 import하는 변수의 변수명을 멋있는걸로 바꿀 수 있습니다.
+        //c라는 것은 간지라고 이름을 바꿨고 a라는 것은 폭발로 이름을 바꿨습니다.
 
+        //(5) import할 때 변수들이 너무 많으면 * 기호를 쓰기
+        //export 했던 변수들이 100개면 import 오른쪽에 변수를 100개나 쭉 써줘야함
+        //그러기 싫으면 변수들을 한꺼번에 object에 담아서 import 해올 수 있습니다.
+        import c, {* as 변수모음} from 'library.js';
+        console.log(변수모음.a);
+        console.log(c);
+        //* 이라는 기호는 export 했던 애들을 그냥 다 import 해주세요~ 라는 뜻인데 그냥 쓰면 안되고 as로 별명을 꼭 지어주어야함
+        //그럼 이제 별명에 export 했던 변수들이 다 들어갑니다. (export default 했던건 원래대로 import 해주기)
 
-        //변수를 object로 집어넣고 싶은 경우
-
-        var name = 'Kim';
-        var age = 30;
-
-        var obj = { name: name, age: age }
-        //기존엔 이렇게 했지만
-        //destructuring 문법을 이용하면
-        var name = 'Kim';
-        var age = 30;
-
-        var obj = { name, age }
-        //name : name 이렇게 key값과 value값이 동일하면 name 이렇게 하나로 생략이 가능
-
-
-        //함수 파라미터 변수 만들 때도 똑같이 적용가능
-        //함수가 하나 있는데 이 함수는 두개의 파라미터를 입력할 수 있습니다. 여기에 object 내의 Kim, 그리고 age 자료들을 입력하고 싶을땐?
-        function 함수(name, age) {
-            console.log(name);
-            console.log(age);
-        }
-
-        var obj = { name: 'Kim', age: 20 }
-        함수(obj.name, obj.age);
-        //이 방법도 있고
-        //destructuring 문법을 이용하면
-        function 함수({ name, age }) {
-            console.log(name);
-            console.log(age);
-        }
-
-        var obj = { name: 'Kim', age: 20 };
-        함수(obj);
-        // obj.name, obj.name 이걸 두개 뽑지 않고도 넣을 수 있습니다.
-        //왜냐면 파라미터는 실은 변수만드는 거랑 똑같은 행위이기 때문에 변수만드는 문법을 그대로 적용가능
-        //파라미터를 입력할 때 { name, age } = { name: 'Kim', age : 20 }이거 한거랑 같음
-
-        //다른예로 조금 더 쉬운 array를 예시로 함수 파라미터로 array 내의 데이터들을 집어넣고 싶을 땐?
-        function 함수(name, age) {
-            console.log(name);
-            console.log(age);
-        }
-
-        var array = ['Kim', 30];
-        함수(array[0], array[1]);
-        //이렇게도 가능하지만
-        //destructuring 문법을 이용하면
-        function 함수([name, age]) {
-            console.log(name);
-            console.log(age);
-        }
-
-        var array = ['Kim', 30];
-        함수(['Kim', 30]);
-        //이렇게 파라미터인[name, age] 를 만들 때['Kim', 30] 이걸 그대로 대입해서 만드는 것입니다.
-        //그럼 각각 name과 age에는 Kim과 30이라는 데이터가 들어갑니다.
-
-
-        //Q: 다음과 같은 Object에서 데이터를 뽑아서 변수를 만들고 싶습니다. 
-        let 신체정보 = {
-            body: {
-                height: 190,
-                weight: 70
-            },
-            size: ["상의 Large", "바지 30인치"],
-        };
-        //여러분의 뛰어난 신체 정보를 담은 Object입니다. 여기서 키, 몸무게, 상의사이즈, 하의사이즈 정보를 각각 뽑아서 4개의 변수를 만들고 싶습니다. 어떻게 만들면 될까요 ?
-        // (참고: 데이터가 얼마나 복잡하든간에 좌우 형태를 똑같이 맞추시면 destructuring 문법으로 변수를 만들 수 있습니다.)
-        //A:
-        let 신체정보 = {
-            body: {
-                height: 190,
-                weight: 70
-            },
-            size: ["상의 Large", "바지 30인치"],
-        };
-
-        let {
-            body: {
-                height,
-                weight
-            },
-            size: [상의, 하의]
-        } = 신체정보;
-        //등호를 이용해서 좌우를 똑같이 맞추고 왼쪽엔 변수명을 적었습니다.
-        //그럼 이제 height, weight, 상의, 하의라는 이름의 변수가 생성됩니다.
-
-
-
-
-
-
-
-
-
-
+        // import/export는 당연 IE 호환성이 없기 때문에 단순한 html css js 프론트엔드 개발시 JS파일을 HTML에 첨부하려면  < script src="경로" ></> 이걸 쓰도록 합시다.이것이 원조 import 문법
+        //혹은 모던 브라우저에선 < script type = "module" src = "경로" ></> 이렇게 하면 import export 문법이 사용가능해지는데 대부분은 리액트 뷰 nodejs 할 때 많이 사용하게 됩니다.
 
 
 
@@ -154,6 +66,7 @@
 
 
     </script>
+
 </body>
 
 </html>
