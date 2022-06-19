@@ -9,56 +9,24 @@
 </head>
 
 <body>
-    <script type="module">
-        import a from 'library.js';
-        console.log(a);
-        //자바스크립트 코드가 길어지면 다른 파일로 쪼개는게 좋은 관습, 다른파일로 쪼개놓고 그걸 첨부해서 사용하는 방법
-        //ES6 import /export를 쓰시면 내가 원하는 변수, 함수, class만 다른 파일로 보낼 수 있습니다.
-        //(참고) import 해온 변수, 함수는 사용은 가능하지만 수정은 불가능합니다.read - only 입니다.
+    <script>
+        //자바스크립트는 항상 동기식 처리 (synchronous)
+        //동기식 처리란: 한번에 코드 한줄씩 차례차례 실행 자바스크립트를 실행하는 웹브라우저는 stack이라는 코드 실행 공간이 있는데 거기서 코드를 한줄한줄 차례로 실행합니다. 
 
-        //index.html과 library.js를 만들어서 library.js 파일에 있는 내용을 index.html < script > 태그 내에서 가져다 쓰게 하기(.js 파일 간에도 가능)
-        //HTML 파일 안에서 ES6 import 문법을 쓰려면 script 태그 안에 type을 module로 설정해야함
-        //(1) export default / import 를 쓰면 다른 파일에 있는 변수 등을 가져다 쓸수 있음. 변수 함수 class 전부 가능
+        console.log(1);
+        console.log(2);
+        console.log(3);
+        //1,2,3이 차례로 출력
 
-
-        //(2) 여러개를 export 할 수도 있습니다 JS파일에서 변수를 여러개 만들고 그걸 다 내보내고싶으면 export 라는 키워드를 여러번 쓰면 됌
-        import { a, b } from 'library.js';
-        console.log(a);
-
-        //(3)그럼 export와 export default 동시에 사용할땐?
-        import c, { a, b } from 'library.js';
-        console.log(c);
-        //이렇게 import 해오면 됌 export default 한건 맨 왼쪽에 써주시면 되고
-        //그 다음부터 이제 { } 중괄호 안에 export 했던 변수들을 적어주시면 됩니다.
-
-        //(4) 변수명이 마음에 안들면 as로 새로 짓기
-        import c as 간지, { a as 폭발 } from 'library.js';
-        console.log(간지);
-        console.log(폭발);
-        //import를 쓸 때 변수명 오른쪽에 as라는 키워드를 붙일 수 있습니다.
-        //변수명 as 새변수명 이렇게 하면 import하는 변수의 변수명을 멋있는걸로 바꿀 수 있습니다.
-        //c라는 것은 간지라고 이름을 바꿨고 a라는 것은 폭발로 이름을 바꿨습니다.
-
-        //(5) import할 때 변수들이 너무 많으면 * 기호를 쓰기
-        //export 했던 변수들이 100개면 import 오른쪽에 변수를 100개나 쭉 써줘야함
-        //그러기 싫으면 변수들을 한꺼번에 object에 담아서 import 해올 수 있습니다.
-        import c, {* as 변수모음} from 'library.js';
-        console.log(변수모음.a);
-        console.log(c);
-        //* 이라는 기호는 export 했던 애들을 그냥 다 import 해주세요~ 라는 뜻인데 그냥 쓰면 안되고 as로 별명을 꼭 지어주어야함
-        //그럼 이제 별명에 export 했던 변수들이 다 들어갑니다. (export default 했던건 원래대로 import 해주기)
-
-        // import/export는 당연 IE 호환성이 없기 때문에 단순한 html css js 프론트엔드 개발시 JS파일을 HTML에 첨부하려면  < script src="경로" ></> 이걸 쓰도록 합시다.이것이 원조 import 문법
-        //혹은 모던 브라우저에선 < script type = "module" src = "경로" ></> 이렇게 하면 import export 문법이 사용가능해지는데 대부분은 리액트 뷰 nodejs 할 때 많이 사용하게 됩니다.
-
-
-
-
-
-
-
-
-
+        //비동기처리 (asynchronous)라는 것도 가능합니다.
+        console.log(1);
+        setTimeout(function () { }, 1000);
+        console.log(2);
+        // 1과 2가 콘솔창에 동시에 출력
+        //자바스크립트 실행머신인 웹브라우저는 이런 특수한 코드들을 발견하면 약간 제쳐두고 다른 코드부터 실행하려고 합니다.
+        //그래서 setTimeout() 을 제껴두고 그 밑에 있는 console.log(2)라는 코드 부터 실행하는데 이런 처리방식을 바로 비동기(asynchronous)
+        //실행이 오래걸리는 그런 코드들은 잠깐 대기실에 제쳐두고, 실행이 바로바로 가능한 코드들부터 처리하는 방식을 뜻합니다.
+        //이건 자바스크립트 언어 자체의 기능이 아니라 자바스크립트 실행을 도와주는 웹브라우저 덕분에 가능합니다.
 
 
 
